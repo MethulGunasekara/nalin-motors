@@ -1,0 +1,27 @@
+:root {
+  --color-primary-red: #C0392B;
+  --color-primary-red-dark: #962D22;
+  --color-bg: #FFFFFF;
+  --color-text: #1A1A1A;
+  --color-accent-blue: #2E6FBA;
+  --color-accent-green: #2E9E5B;
+  --color-border: #E5E5E5;
+  --color-muted: #6B6B6B;
+  --font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}

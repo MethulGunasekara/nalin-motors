@@ -1,0 +1,60 @@
+{
+  "app": {
+    "name": "නලින් මෝටර්ස්"
+  },
+  "nav": {
+    "dashboard": "උපකරණ පුවරුව",
+    "newAppointment": "නව වේලාවක්",
+    "employees": "සේවකයින්",
+    "catalog": "සේවා ලැයිස්තුව",
+    "logout": "පිටවීම"
+  },
+  "login": {
+    "title": "සේවක පිවිසුම",
+    "phone": "දුරකථන අංකය",
+    "password": "මුරපදය",
+    "submit": "පිවිසෙන්න",
+    "error": "වැරදි දුරකථන අංකයක් හෝ මුරපදයක්"
+  },
+  "dashboard": {
+    "today": "අද දිනට වේලාවන්",
+    "upcoming": "ඉදිරි වේලාවන්",
+    "noneToday": "අද දිනට වේලාවන් නොමැත.",
+    "noneUpcoming": "ඉදිරි වේලාවන් නොමැත.",
+    "confirmArrival": "පැමිණීම තහවුරු කරන්න",
+    "reschedule": "වේලාව වෙනස් කරන්න",
+    "cancel": "අවලංගු කරන්න",
+    "createCard": "සේවා කාඩ්පත සාදන්න"
+  },
+  "appointment": {
+    "vehicleNumber": "වාහන අංකය",
+    "customerMobile": "ගනුදෙනුකරු දුරකථනය",
+    "serviceDate": "සේවා දිනය",
+    "startTime": "ආරම්භක වේලාව",
+    "status": "තත්ත්වය",
+    "submit": "වේලාව වෙන් කරන්න"
+  },
+  "serviceCard": {
+    "title": "සේවා කාඩ්පත",
+    "brand": "වෙළඳ නාමය",
+    "model": "මාදිලිය",
+    "inspectingOfficer": "පරීක්ෂක නිලධාරී",
+    "mechanic": "යාන්ත්‍රික ශිල්පියා",
+    "checklist": "සම්මත සේවාවන්",
+    "addCustomService": "විශේෂ සේවාවක් එකතු කරන්න",
+    "notes": "යාන්ත්‍රික ශිල්පියාට සටහන්",
+    "print": "මුද්‍රණය කරන්න",
+    "download": "PDF බාගන්න",
+    "markInProgress": "සිදුවෙමින් පවතී ලෙස සලකුණු කරන්න",
+    "markCompleted": "සම්පූර්ණයි ලෙස සලකුණු කරන්න"
+  },
+  "status": {
+    "Booked": "වෙන් කර ඇත",
+    "Confirmed": "තහවුරු කර ඇත",
+    "Rescheduled": "නැවත සකස් කරන ලදී",
+    "Cancelled": "අවලංගු කර ඇත",
+    "Completed": "සම්පූර්ණයි",
+    "Pending": "පොරොත්තුවෙන්",
+    "In Progress": "සිදුවෙමින් පවතී"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "app": {
+    "name": "Nalin Motors"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "newAppointment": "New Appointment",
+    "employees": "Employees",
+    "catalog": "Service Catalog",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Staff Login",
+    "phone": "Phone Number",
+    "password": "Password",
+    "submit": "Log In",
+    "error": "Invalid phone number or password"
+  },
+  "dashboard": {
+    "today": "Today's Appointments",
+    "upcoming": "Upcoming Appointments",
+    "noneToday": "No appointments today.",
+    "noneUpcoming": "No upcoming appointments.",
+    "confirmArrival": "Confirm Arrival",
+    "reschedule": "Reschedule",
+    "cancel": "Cancel",
+    "createCard": "Create Service Card"
+  },
+  "appointment": {
+    "vehicleNumber": "Vehicle Number",
+    "customerMobile": "Customer Mobile",
+    "serviceDate": "Service Date",
+    "startTime": "Start Time",
+    "status": "Status",
+    "submit": "Book Appointment"
+  },
+  "serviceCard": {
+    "title": "Service Card",
+    "brand": "Brand",
+    "model": "Model",
+    "inspectingOfficer": "Inspecting Officer",
+    "mechanic": "Mechanic",
+    "checklist": "Standard Services",
+    "addCustomService": "Add Custom Service",
+    "notes": "Notes for Mechanic",
+    "print": "Print",
+    "download": "Download PDF",
+    "markInProgress": "Mark In Progress",
+    "markCompleted": "Mark Completed"
+  },
+  "status": {
+    "Booked": "Booked",
+    "Confirmed": "Confirmed",
+    "Rescheduled": "Rescheduled",
+    "Cancelled": "Cancelled",
+    "Completed": "Completed",
+    "Pending": "Pending",
+    "In Progress": "In Progress"
+  }
+}
