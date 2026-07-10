@@ -1,12 +1,18 @@
 :root {
-  --color-primary-red: #C0392B;
-  --color-primary-red-dark: #962D22;
-  --color-bg: #FFFFFF;
-  --color-text: #1A1A1A;
-  --color-accent-blue: #2E6FBA;
-  --color-accent-green: #2E9E5B;
-  --color-border: #E5E5E5;
-  --color-muted: #6B6B6B;
+  --color-primary-red: #C5372C;
+  --color-primary-red-dark: #A02E24;
+  --color-red-tint: #FDF6F5;
+  --color-bg: #F7F5F0;
+  --color-surface: #FFFFFF;
+  --color-text: #1C1917;
+  --color-text-secondary: #44403C;
+  --color-accent-blue: #3A6EA8;
+  --color-blue-tint: #EBF2FA;
+  --color-accent-green: #2F8C54;
+  --color-accent-purple: #8E24AA;
+  --color-green-tint: #EAF4EE;
+  --color-border: #E0DDD6;
+  --color-muted: #78716C;
   --font-family: 'Segoe UI', system-ui, sans-serif;
 }
 

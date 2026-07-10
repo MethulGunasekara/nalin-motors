@@ -1,0 +1,103 @@
+.card-form {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card-form h2 {
+  color: var(--color-primary-red);
+  font-size: 1.1rem;
+}
+
+.card-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-form label {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-top: 14px;
+}
+
+.card-form input,
+.card-form select,
+.card-form textarea {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  margin-top: 4px;
+  font-family: inherit;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.checklist__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.custom-service-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.custom-service-row input {
+  flex: 1;
+  margin-top: 0;
+}
+
+.custom-service-row button {
+  border: none;
+  border-radius: 8px;
+  padding: 0 16px;
+}
+
+.custom-service-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.custom-service-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.custom-service-list button {
+  border: none;
+  background: none;
+  color: var(--color-primary-red);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.card-form button[type='submit'] {
+  margin-top: 24px;
+  padding: 14px;
+  font-size: 1rem;
+}
+
+.card-form__error {
+  color: var(--color-primary-red);
+  font-size: 0.85rem;
+  margin-top: 10px;
+}

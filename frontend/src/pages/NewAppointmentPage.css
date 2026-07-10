@@ -1,0 +1,41 @@
+.new-appt-page {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.new-appt-page h2 {
+  color: var(--color-primary-red);
+  font-size: 1.15rem;
+}
+
+.new-appt-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-appt-page label {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-top: 12px;
+}
+
+.new-appt-page input {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  margin-top: 4px;
+}
+
+.new-appt-page button {
+  margin-top: 24px;
+  padding: 14px;
+  font-size: 1rem;
+}
+
+.new-appt-page__error {
+  color: var(--color-primary-red);
+  font-size: 0.85rem;
+  margin-top: 10px;
+}

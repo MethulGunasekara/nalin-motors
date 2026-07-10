@@ -1,4 +1,20 @@
 const Appointment = require('../models/Appointment');
+const ServiceCard = require('../models/ServiceCard');
+
+// Batch-attach the linked service card id (if any) to a list of appointments,
+// so the frontend can decide "Create Service Card" vs "View Service Card"
+// without an extra request per card.
+const attachServiceCardIds = async (appointments) => {
+  const ids = appointments.map((a) => a._id);
+  const cards = await ServiceCard.find({ appointment: { $in: ids } }).select('appointment');
+  const map = new Map(cards.map((c) => [String(c.appointment), String(c._id)]));
+
+  return appointments.map((a) => {
+    const obj = a.toObject();
+    obj.serviceCardId = map.get(String(a._id)) || null;
+    return obj;
+  });
+};
 
 // POST /api/appointments
 const createAppointment = async (req, res) => {
@@ -25,6 +41,20 @@ const createAppointment = async (req, res) => {
   }
 };
 
+// GET /api/appointments  (owner only — full read-only overview)
+const getAllAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({})
+      .populate('loggedBy', 'name role')
+      .sort({ serviceDate: -1, startTime: 1 });
+
+    const withCards = await attachServiceCardIds(appointments);
+    res.json(withCards);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 // GET /api/appointments/today
 const getTodayAppointments = async (req, res) => {
   try {
@@ -40,7 +70,8 @@ const getTodayAppointments = async (req, res) => {
       .populate('loggedBy', 'name role')
       .sort({ startTime: 1 });
 
-    res.json(appointments);
+    const withCards = await attachServiceCardIds(appointments);
+    res.json(withCards);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -59,7 +90,8 @@ const getUpcomingAppointments = async (req, res) => {
       .populate('loggedBy', 'name role')
       .sort({ serviceDate: 1, startTime: 1 });
 
-    res.json(appointments);
+    const withCards = await attachServiceCardIds(appointments);
+    res.json(withCards);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -76,7 +108,7 @@ const getAppointmentById = async (req, res) => {
   }
 };
 
-// PATCH /api/appointments/:id  (generic edit — e.g. reschedule)
+// PATCH /api/appointments/:id
 const updateAppointment = async (req, res) => {
   try {
     const { serviceDate, startTime, vehicleNumber, customerMobile } = req.body;
@@ -144,6 +176,7 @@ const cancelAppointment = async (req, res) => {
 
 module.exports = {
   createAppointment,
+  getAllAppointments,
   getTodayAppointments,
   getUpcomingAppointments,
   getAppointmentById,

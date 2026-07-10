@@ -1,0 +1,40 @@
+.dashboard {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.dashboard__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.dashboard h2 {
+  color: var(--color-primary-red);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.dashboard__section-spaced {
+  margin-top: 28px;
+}
+
+.dashboard__empty {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.dashboard__date-group {
+  margin-bottom: 18px;
+}
+
+.dashboard__date-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent-blue);
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-border);
+}

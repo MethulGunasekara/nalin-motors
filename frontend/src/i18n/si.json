@@ -24,7 +24,11 @@
     "confirmArrival": "පැමිණීම තහවුරු කරන්න",
     "reschedule": "වේලාව වෙනස් කරන්න",
     "cancel": "අවලංගු කරන්න",
-    "createCard": "සේවා කාඩ්පත සාදන්න"
+    "createCard": "සේවා කාඩ්පත සාදන්න",
+    "viewCard": "සේවා කාඩ්පත බලන්න",
+    "todayTag": "අද",
+    "searchPlaceholder": "වාහන අංකය, දුරකථනය, හෝ දිනය අනුව සොයන්න",
+    "noResults": "ගැලපීම් හමු නොවීය."
   },
   "appointment": {
     "vehicleNumber": "වාහන අංකය",
@@ -46,7 +50,8 @@
     "print": "මුද්‍රණය කරන්න",
     "download": "PDF බාගන්න",
     "markInProgress": "සිදුවෙමින් පවතී ලෙස සලකුණු කරන්න",
-    "markCompleted": "සම්පූර්ණයි ලෙස සලකුණු කරන්න"
+    "markCompleted": "සම්පූර්ණයි ලෙස සලකුණු කරන්න",
+    "checklistSelect": "මෙම වාහනයට අවශ්‍ය සේවාවන්"
   },
   "status": {
     "Booked": "වෙන් කර ඇත",

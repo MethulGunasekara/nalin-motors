@@ -1,0 +1,22 @@
+.admin-nav {
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+}
+
+.admin-nav a {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.admin-nav a.active {
+  background: var(--color-primary-red);
+  color: white;
+}

@@ -1,0 +1,32 @@
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge--purple {
+  background: #f3e0fb;
+  color: var(--color-accent-purple);
+}
+
+.badge--green {
+  background: #E4F6EC;
+  color: var(--color-accent-green);
+}
+
+.badge--blue {
+  background: #E7F0FA;
+  color: var(--color-accent-blue);
+}
+
+.badge--red {
+  background: #FBEAE8;
+  color: var(--color-primary-red);
+}
+
+.badge--muted {
+  background: #F0F0F0;
+  color: var(--color-muted);
+}

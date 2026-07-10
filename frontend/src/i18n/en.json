@@ -24,7 +24,11 @@
     "confirmArrival": "Confirm Arrival",
     "reschedule": "Reschedule",
     "cancel": "Cancel",
-    "createCard": "Create Service Card"
+    "createCard": "Create Service Card",
+    "viewCard": "View Service Card",
+    "todayTag": "TODAY",
+    "searchPlaceholder": "Search by vehicle no., phone, or date",
+    "noResults": "No matches found."
   },
   "appointment": {
     "vehicleNumber": "Vehicle Number",
@@ -46,7 +50,8 @@
     "print": "Print",
     "download": "Download PDF",
     "markInProgress": "Mark In Progress",
-    "markCompleted": "Mark Completed"
+    "markCompleted": "Mark Completed",
+    "checklistSelect": "Services required for this vehicle"
   },
   "status": {
     "Booked": "Booked",

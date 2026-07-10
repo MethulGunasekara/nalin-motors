@@ -12,10 +12,15 @@ const serviceCardSchema = new mongoose.Schema(
     checklist: [
       {
         catalogItem: { type: mongoose.Schema.Types.ObjectId, ref: 'ServiceCatalogItem' },
-        selected: { type: Boolean, default: false },
+        completedByMechanic: { type: Boolean, default: false },
       },
     ],
-    customServices: [{ type: String, trim: true }],
+    customServices: [
+      {
+        name: { type: String, trim: true },
+        completedByMechanic: { type: Boolean, default: false },
+      }
+    ],
     notes: { type: String, trim: true },
     status: {
       type: String,

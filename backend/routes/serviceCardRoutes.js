@@ -7,6 +7,7 @@ const {
   getServiceCards,
   updateServiceCard,
   updateServiceCardStatus,
+  updateChecklistItem,
 } = require('../controllers/serviceCardController');
 
 router.get('/', protect, getServiceCards);
@@ -14,5 +15,6 @@ router.get('/:id', protect, getServiceCardById);
 router.post('/', protect, createServiceCard);
 router.patch('/:id', protect, updateServiceCard);
 router.patch('/:id/status', protect, updateServiceCardStatus);
+router.patch('/:id/checklist', protect, updateChecklistItem);
 
 module.exports = router;

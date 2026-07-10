@@ -1,0 +1,57 @@
+.mechanic-queue {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.mechanic-queue h2 {
+  color: var(--color-primary-red);
+  font-size: 1.05rem;
+}
+
+.mechanic-queue__card {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.mechanic-queue__card--today {
+  border-left: 5px solid var(--color-primary-red);
+  background: #FFF7F6;
+}
+
+.mechanic-queue__today-tag {
+  position: absolute;
+  top: -9px;
+  right: 12px;
+  background: var(--color-primary-red);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.mechanic-queue__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mechanic-queue__vehicle {
+  font-weight: 700;
+}
+
+.mechanic-queue__date {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin-top: 4px;
+}
+
+.mechanic-queue__empty {
+  color: var(--color-muted);
+}

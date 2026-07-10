@@ -3,7 +3,6 @@ const Appointment = require('../models/Appointment');
 const ServiceCatalogItem = require('../models/ServiceCatalogItem');
 
 // POST /api/service-cards
-// Creates a service card from a confirmed appointment.
 const createServiceCard = async (req, res) => {
   try {
     const {
@@ -12,8 +11,8 @@ const createServiceCard = async (req, res) => {
       model,
       inspectingOfficer,
       mechanic,
-      selectedCatalogItemIds, // array of ServiceCatalogItem _ids the cashier ticked
-      customServices,         // array of free-text strings
+      selectedCatalogItemIds, // only the IDs the cashier ticked as applicable
+      customServices,         // array of strings
       notes,
     } = req.body;
 
@@ -33,12 +32,23 @@ const createServiceCard = async (req, res) => {
       });
     }
 
-    // Build the checklist against the full active catalog, marking selected ones.
-    const catalogItems = await ServiceCatalogItem.find({ active: true });
-    const selectedSet = new Set((selectedCatalogItemIds || []).map(String));
-    const checklist = catalogItems.map((item) => ({
+    // Only save the catalog items the cashier selected as applicable.
+    // completedByMechanic starts false on all of them — the mechanic ticks them off later.
+    const selectedIds = (selectedCatalogItemIds || []).map(String);
+    const selectedItems = await ServiceCatalogItem.find({
+      _id: { $in: selectedIds },
+      active: true,
+    });
+
+    const checklist = selectedItems.map((item) => ({
       catalogItem: item._id,
-      selected: selectedSet.has(String(item._id)),
+      completedByMechanic: false,
+    }));
+
+    // Custom services also start unchecked
+    const customList = (customServices || []).map((name) => ({
+      name,
+      completedByMechanic: false,
     }));
 
     const serviceCard = await ServiceCard.create({
@@ -50,14 +60,15 @@ const createServiceCard = async (req, res) => {
       inspectingOfficer,
       mechanic,
       checklist,
-      customServices: customServices || [],
+      customServices: customList,
       notes,
     });
 
-    const populated = await serviceCard
-      .populate('inspectingOfficer', 'name role')
-      .populate('mechanic', 'name role')
-      .populate('checklist.catalogItem', 'serviceNameEn serviceNameSi');
+    const populated = await serviceCard.populate([
+      { path: 'inspectingOfficer', select: 'name role' },
+      { path: 'mechanic', select: 'name role' },
+      { path: 'checklist.catalogItem', select: 'serviceNameEn serviceNameSi' },
+    ]);
 
     res.status(201).json(populated);
   } catch (err) {
@@ -81,7 +92,7 @@ const getServiceCardById = async (req, res) => {
   }
 };
 
-// GET /api/service-cards?mechanic=<id>&status=Pending
+// GET /api/service-cards
 const getServiceCards = async (req, res) => {
   try {
     const filter = {};
@@ -91,6 +102,7 @@ const getServiceCards = async (req, res) => {
     const serviceCards = await ServiceCard.find(filter)
       .populate('inspectingOfficer', 'name role')
       .populate('mechanic', 'name role')
+      .populate('appointment', 'serviceDate startTime')
       .sort({ createdAt: -1 });
 
     res.json(serviceCards);
@@ -100,7 +112,6 @@ const getServiceCards = async (req, res) => {
 };
 
 // PATCH /api/service-cards/:id
-// General edit — e.g. cashier adjusts checklist/custom services/notes before handoff.
 const updateServiceCard = async (req, res) => {
   try {
     const { brand, model, selectedCatalogItemIds, customServices, notes } = req.body;
@@ -113,14 +124,23 @@ const updateServiceCard = async (req, res) => {
 
     if (brand !== undefined) serviceCard.brand = brand;
     if (model !== undefined) serviceCard.model = model;
-    if (customServices !== undefined) serviceCard.customServices = customServices;
     if (notes !== undefined) serviceCard.notes = notes;
 
     if (selectedCatalogItemIds !== undefined) {
-      const selectedSet = new Set(selectedCatalogItemIds.map(String));
-      serviceCard.checklist = serviceCard.checklist.map((entry) => ({
-        catalogItem: entry.catalogItem,
-        selected: selectedSet.has(String(entry.catalogItem)),
+      const selectedItems = await ServiceCatalogItem.find({
+        _id: { $in: selectedCatalogItemIds },
+        active: true,
+      });
+      serviceCard.checklist = selectedItems.map((item) => ({
+        catalogItem: item._id,
+        completedByMechanic: false,
+      }));
+    }
+
+    if (customServices !== undefined) {
+      serviceCard.customServices = customServices.map((name) => ({
+        name,
+        completedByMechanic: false,
       }));
     }
 
@@ -132,7 +152,6 @@ const updateServiceCard = async (req, res) => {
 };
 
 // PATCH /api/service-cards/:id/status
-// Body: { "status": "In Progress" | "Completed" | "Pending" }
 const updateServiceCardStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -148,11 +167,47 @@ const updateServiceCardStatus = async (req, res) => {
     serviceCard.status = status;
     await serviceCard.save();
 
-    // Keep the parent appointment in sync once work is fully done.
     if (status === 'Completed') {
       await Appointment.findByIdAndUpdate(serviceCard.appointment, { status: 'Completed' });
     }
 
+    res.json(serviceCard);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// PATCH /api/service-cards/:id/checklist
+// Only the assigned mechanic should call this.
+// Body: { checklistIndex: 0, completed: true }  for catalog items
+//       { customIndex: 1,   completed: true }    for custom services
+const updateChecklistItem = async (req, res) => {
+  try {
+    const { checklistIndex, customIndex, completed } = req.body;
+    const serviceCard = await ServiceCard.findById(req.params.id);
+    if (!serviceCard) return res.status(404).json({ message: 'Service card not found' });
+
+    if (serviceCard.status === 'Completed') {
+      return res.status(400).json({ message: 'Card is already completed' });
+    }
+
+    if (checklistIndex !== undefined) {
+      if (!serviceCard.checklist[checklistIndex]) {
+        return res.status(400).json({ message: 'Invalid checklist index' });
+      }
+      serviceCard.checklist[checklistIndex].completedByMechanic = Boolean(completed);
+    }
+
+    if (customIndex !== undefined) {
+      if (!serviceCard.customServices[customIndex]) {
+        return res.status(400).json({ message: 'Invalid custom service index' });
+      }
+      serviceCard.customServices[customIndex].completedByMechanic = Boolean(completed);
+    }
+
+    serviceCard.markModified('checklist');
+    serviceCard.markModified('customServices');
+    await serviceCard.save();
     res.json(serviceCard);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -165,4 +220,5 @@ module.exports = {
   getServiceCards,
   updateServiceCard,
   updateServiceCardStatus,
+  updateChecklistItem,
 };
