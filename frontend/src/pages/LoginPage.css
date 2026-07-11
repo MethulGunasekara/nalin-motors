@@ -1,76 +1,295 @@
+/* ── Layout ──────────────────────────────────────────────────────────────── */
 .login-page {
   min-height: 100vh;
+  display: flex;
+  background: var(--color-bg);
+}
+
+/* ── Left decorative panel (hidden on small mobile, shown on wider screens) */
+.login-page__bg-panel {
+  display: none;
+  position: relative;
+  width: 420px;
+  flex-shrink: 0;
+  background: var(--color-primary-red);
+  overflow: hidden;
+  padding: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .login-page__bg-panel {
+    display: flex;
+  }
+}
+
+/* Decorative circles */
+.login-page__bg-circles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.circle--1 {
+  width: 320px;
+  height: 320px;
+  top: -80px;
+  right: -80px;
+}
+
+.circle--2 {
+  width: 220px;
+  height: 220px;
+  bottom: 60px;
+  left: -60px;
+}
+
+.circle--3 {
+  width: 140px;
+  height: 140px;
+  bottom: -40px;
+  right: 40px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Brand block inside the left panel */
+.login-page__brand-block {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.login-page__brand-logo {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  border-radius: 20px;
+  background: white;
+  padding: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.login-page__brand-name {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.login-page__brand-tagline {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ── Right form panel ─────────────────────────────────────────────────────── */
+.login-page__form-panel {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background: var(--color-bg);
+  padding: 32px 20px;
+  position: relative;
 }
 
 .login-page__lang {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 20px;
+  right: 20px;
 }
 
+/* ── Login card ───────────────────────────────────────────────────────────── */
 .login-card {
   width: 100%;
-  max-width: 360px;
-  padding: 32px 24px;
+  max-width: 380px;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
-  text-align: center;
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
 }
 
-.login-card__logo {
-  height: 64px;
+.login-card__icon {
+  font-size: 2rem;
   margin-bottom: 12px;
+  display: block;
 }
 
-.login-card h1 {
-  color: var(--color-primary-red);
-  font-size: 1.3rem;
-  margin-bottom: 20px;
+.login-card__title {
+  color: var(--color-text);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 4px;
 }
 
-.login-card form {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  gap: 6px;
-}
-
-.login-card label {
-  font-size: 0.85rem;
+.login-card__subtitle {
   color: var(--color-muted);
-  margin-top: 8px;
+  font-size: 0.875rem;
+  margin: 0 0 28px;
 }
 
-.login-card input {
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
+/* ── Form fields ─────────────────────────────────────────────────────────── */
+.login-field {
+  margin-bottom: 18px;
 }
 
-.login-card button {
-  margin-top: 20px;
-  padding: 14px;
-  font-size: 1rem;
+.login-field__label {
+  display: block;
+  font-size: 0.82rem;
   font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.login-field__input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-field__icon {
+  position: absolute;
+  left: 12px;
+  font-size: 1rem;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.login-field__input-wrap input {
+  width: 100%;
+  padding: 12px 14px 12px 40px;
+  font-size: 0.95rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.login-field__input-wrap input:focus {
+  outline: none;
+  border-color: var(--color-primary-red);
+  background: white;
+}
+
+.login-field__input-wrap input::placeholder {
+  color: var(--color-muted);
+  opacity: 0.6;
+}
+
+/* ── Error ───────────────────────────────────────────────────────────────── */
+.login-card__error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-red-tint);
+  border: 1px solid #F5C2BE;
+  color: var(--color-primary-red);
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+/* ── Submit button ───────────────────────────────────────────────────────── */
+.login-card__btn {
+  width: 100%;
+  padding: 13px;
+  margin-top: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
   background: var(--color-primary-red);
   color: white;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, transform 0.1s;
 }
 
-.login-card button:hover {
+.login-card__btn:hover:not(:disabled) {
   background: var(--color-primary-red-dark);
 }
 
-.login-card__error {
-  color: var(--color-primary-red);
-  font-size: 0.85rem;
-  margin-top: 8px;
+.login-card__btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.login-card__btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-card__btn-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ── Spinner ─────────────────────────────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+.login-page__footer {
+  margin-top: 24px;
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+/* ── Mobile — show logo at top since left panel is hidden ────────────────── */
+@media (max-width: 767px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-page__form-panel {
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .login-card {
+    padding: 28px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Show a compact red top bar on mobile instead of the full left panel */
+  .login-page__form-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--color-primary-red);
+    border-radius: 0;
+  }
 }

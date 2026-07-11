@@ -49,11 +49,33 @@
   border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 10px 14px;
+  gap: 12px;
+}
+
+/* Name side grows to fill available space but doesn't push the button */
+.admin-page__row > div {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.admin-page__row > div strong {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .admin-page__meta {
   color: var(--color-muted);
   font-size: 0.85rem;
+}
+
+/* Button stays a fixed, consistent width — never stretches */
+.admin-page__row > .btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  padding: 7px 14px;
+  font-size: 0.82rem;
 }
 
 @media (min-width: 480px) {
