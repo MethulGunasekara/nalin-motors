@@ -8,15 +8,13 @@ connectDB();
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({
+  origin: process.env.CLIENT_URL || '*',
+  credentials: true,
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => {
-  res.send('Nalin Motors API is live!');
-});
-
-// Existing health check for API monitoring
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 app.use('/api/auth', require('./routes/authRoutes'));
