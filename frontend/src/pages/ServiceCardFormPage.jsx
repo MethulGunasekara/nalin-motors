@@ -101,7 +101,7 @@ const ServiceCardFormPage = () => {
       <main className="card-form">
         <h2>{t('serviceCard.title')}</h2>
         <form onSubmit={handleSubmit}>
-          <label>{t('serviceCard.checklistSelect')}</label>
+          <label>{t('serviceCard.brand')}</label>
           <input value={brand} onChange={(e) => setBrand(e.target.value)} />
 
           <label>{t('serviceCard.model')}</label>
