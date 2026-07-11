@@ -17,8 +17,13 @@
   margin: 0;
 }
 
+.dashboard__ongoing-title {
+  color: var(--color-accent-blue) !important;
+}
+
 .dashboard__section-spaced {
   margin-top: 28px;
+  margin-bottom: 10px;
 }
 
 .dashboard__empty {

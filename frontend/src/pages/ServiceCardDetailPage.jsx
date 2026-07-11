@@ -49,13 +49,11 @@ const ServiceCardDetailPage = () => {
   };
 
   const handleToggleCatalogItem = async (index, current) => {
-    if (!isMechanic) return;
     await updateChecklistItem(id, { checklistIndex: index, completed: !current });
     load();
   };
 
   const handleToggleCustomItem = async (index, current) => {
-    if (!isMechanic) return;
     await updateChecklistItem(id, { customIndex: index, completed: !current });
     load();
   };
@@ -85,7 +83,7 @@ const ServiceCardDetailPage = () => {
           >
             {downloading ? '...' : t('serviceCard.download')}
           </button>
-          {isMechanic && card.status === 'Pending' && (
+          {(isMechanic || employee.role === 'cashier') && card.status === 'Pending' && (
             <button
               className="btn btn--blue"
               onClick={() => handleStatusChange('In Progress')}
@@ -93,7 +91,7 @@ const ServiceCardDetailPage = () => {
               {t('serviceCard.markInProgress')}
             </button>
           )}
-          {isMechanic && card.status !== 'Completed' && (
+          {(isMechanic || employee.role === 'cashier') && card.status !== 'Completed' && (
             <button
               className="btn btn--green"
               onClick={() => handleStatusChange('Completed')}

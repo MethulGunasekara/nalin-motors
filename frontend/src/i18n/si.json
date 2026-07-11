@@ -51,7 +51,9 @@
     "download": "PDF බාගන්න",
     "markInProgress": "සිදුවෙමින් පවතී ලෙස සලකුණු කරන්න",
     "markCompleted": "සම්පූර්ණයි ලෙස සලකුණු කරන්න",
-    "checklistSelect": "මෙම වාහනයට අවශ්‍ය සේවාවන්"
+    "checklistSelect": "මෙම වාහනයට අවශ්‍ය සේවාවන්",
+    "done": "සම්පූර්ණයි",
+    "ongoing": "පවත්නා සේවාවන්"
   },
   "status": {
     "Booked": "වෙන් කර ඇත",

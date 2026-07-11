@@ -213,6 +213,36 @@ const updateChecklistItem = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+// GET /api/service-cards/ongoing
+// Returns all service cards that are not Completed,
+// whose appointment date is strictly before today.
+const getOngoingServiceCards = async (req, res) => {
+  try {
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+
+    const cards = await ServiceCard.find({
+      status: { $ne: 'Completed' },
+    })
+      .populate('inspectingOfficer', 'name role')
+      .populate('mechanic', 'name role')
+      .populate('checklist.catalogItem', 'serviceNameEn serviceNameSi')
+      .populate({
+        path: 'appointment',
+        match: { serviceDate: { $lt: startOfToday } },
+        select: 'serviceDate startTime status',
+      })
+      .sort({ createdAt: -1 });
+
+    // populate with match doesn't filter out docs — it nulls the field instead.
+    // Filter to only those whose appointment actually matched (i.e. is before today).
+    const filtered = cards.filter((c) => c.appointment !== null);
+
+    res.json(filtered);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 module.exports = {
   createServiceCard,
@@ -221,4 +251,5 @@ module.exports = {
   updateServiceCard,
   updateServiceCardStatus,
   updateChecklistItem,
+  getOngoingServiceCards,
 };

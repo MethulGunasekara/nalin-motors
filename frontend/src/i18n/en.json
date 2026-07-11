@@ -51,7 +51,9 @@
     "download": "Download PDF",
     "markInProgress": "Mark In Progress",
     "markCompleted": "Mark Completed",
-    "checklistSelect": "Services required for this vehicle"
+    "checklistSelect": "Services required for this vehicle",
+    "done": "done",
+    "ongoing": "Ongoing Services"
   },
   "status": {
     "Booked": "Booked",

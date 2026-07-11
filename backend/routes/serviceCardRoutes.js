@@ -8,8 +8,11 @@ const {
   updateServiceCard,
   updateServiceCardStatus,
   updateChecklistItem,
+  getOngoingServiceCards,
 } = require('../controllers/serviceCardController');
 
+// "ongoing" must come before "/:id" or Express treats it as an id param
+router.get('/ongoing', protect, getOngoingServiceCards);
 router.get('/', protect, getServiceCards);
 router.get('/:id', protect, getServiceCardById);
 router.post('/', protect, createServiceCard);
